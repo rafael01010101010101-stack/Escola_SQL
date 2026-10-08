@@ -5,7 +5,8 @@ Create database escola;
 use escola;
 
 -- tabela alunos
-create table alunos (
+create table alunos 
+(
 	id int identity(1,1) primary key, -- identity (1,1) significa que o id vai começar em 1 e vai incrementar de 1 em 1
 	nome varchar(100) not null,
 	idade int not null,
@@ -36,7 +37,8 @@ alter table alunos add salas_id int;
 alter table alunos add foreign key (salas_id) references salas(id);
 
 -- tabela cursos
-create table cursos (
+create table cursos 
+(
 	id int identity(1,1) primary key,
 	nome varchar(100) not null,
 	descricao varchar(255) not null
@@ -50,7 +52,8 @@ insert into cursos (nome, descricao) values ('Curso de Biologia', 'Curso de Biol
 insert into cursos (nome, descricao) values ('Curso de História', 'Curso de História para iniciantes');
 
 -- tabela n-n de cursos com alunos
-create table alunos_cursos (
+create table alunos_cursos 
+(
 	id int identity(1,1) primary key,
 	aluno_id int not null,
 	curso_id int not null,
@@ -59,7 +62,8 @@ create table alunos_cursos (
 );
 
 -- tabela disciplinas
-create table disciplinas (
+create table disciplinas 
+(
 	id int identity(1,1) primary key,
 	nome varchar(100) not null,
 	carga_horaria int not null,
@@ -75,7 +79,8 @@ insert into disciplinas (nome, carga_horaria, curso_id) values ('Biologia Básic
 insert into disciplinas (nome, carga_horaria, curso_id) values ('História Básica', 60, 5);
 
 -- tabela notas
-create table notas (
+create table notas 
+(
 	id int identity(1,1) primary key,
 	aluno_id int not null, -- chave estrangeira para a tabela alunos
 	disciplina_id int not null, -- chave estrangeira para a tabela disciplinas
@@ -93,7 +98,8 @@ insert into notas (aluno_id, disciplina_id, docente_id, nota) values (4, 4, 4, 8
 insert into notas (aluno_id, disciplina_id, docente_id, nota) values (5, 5, 5, 7.0);
 
 -- tabela docentes
-create table docentes (
+create table docentes 
+(
 	id int identity(1,1) primary key,
 	nome varchar(100) not null,
 	idade int not null,
@@ -125,7 +131,8 @@ select name from sys.databases;
 select name from sys.tables;
 
 -- tabela funcionarios
-create table funcionarios (
+create table funcionarios 
+(
 	id int identity(1,1) primary key,
 	nome varchar(100) not null,
 	idade int not null,
@@ -141,7 +148,8 @@ insert into funcionarios (nome, idade, email, cpf) values ('Ana Costa', 28, 'ana
 insert into funcionarios (nome, idade, email, cpf) values ('Carlos Pereira', 40, 'carlos.pereira@email.com', '12345678905');
 
 -- tabela n-n de funcionarios com salas
-create table funcionarios_salas (
+create table funcionarios_salas 
+(
 	id int identity(1,1) primary key,
 	funcionario_id int not null,
 	sala_id int not null,
@@ -157,7 +165,8 @@ insert into funcionarios_salas (funcionario_id, sala_id) values (4, 4);
 insert into funcionarios_salas (funcionario_id, sala_id) values (5, 5);
 
 --tabela n-n de docentes com salas
-create table docentes_salas (
+create table docentes_salas 
+(
 	id int identity(1,1) primary key,
 	docente_id int not null,
 	sala_id int not null,
@@ -173,7 +182,8 @@ insert into docentes_salas (docente_id, sala_id) values (4, 4);
 insert into docentes_salas (docente_id, sala_id) values (5, 5);
 
 -- tabela salas
-create table salas (
+create table salas 
+(
 	id int identity(1,1) primary key,
 	nome varchar(100) not null
 );
@@ -186,7 +196,8 @@ insert into salas (nome) values ('Sala 4');
 insert into salas (nome) values ('Sala 5');
 
 --tabela n-n de cursos com alunos
-create table matriculas (
+create table matriculas 
+(
 	id int identity(1,1) primary key,
 	aluno_id int not null,
 	curso_id int not null,
@@ -194,3 +205,9 @@ create table matriculas (
 	foreign key (aluno_id) references alunos(id),
 	foreign key (curso_id) references cursos(id)
 ); 
+
+insert into matriculas (aluno_id, curso_id, data_matricula) values (1, 1, '2024-01-01');
+insert into matriculas (aluno_id, curso_id, data_matricula) values (2, 2, '2024-01-02');
+insert into matriculas (aluno_id, curso_id, data_matricula) values (3, 3, '2024-01-03');
+insert into matriculas (aluno_id, curso_id, data_matricula) values (4, 4, '2024-01-04');
+insert into matriculas (aluno_id, curso_id, data_matricula) values (5, 5, '2024-01-05');
