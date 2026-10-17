@@ -61,6 +61,13 @@ create table alunos_cursos
 	foreign key (curso_id) references cursos(id)
 );
 
+-- fazendo as inserções na tabela alunos_cursos
+insert into alunos_cursos (aluno_id, curso_id) values (1, 1);
+insert into alunos_cursos (aluno_id, curso_id) values (2, 2);
+insert into alunos_cursos (aluno_id, curso_id) values (3, 3);
+insert into alunos_cursos (aluno_id, curso_id) values (4, 4);
+insert into alunos_cursos (aluno_id, curso_id) values (5, 5);
+
 -- tabela disciplinas
 create table disciplinas 
 (
@@ -87,8 +94,22 @@ create table notas
 	docente_id int not null, -- chave estrangeira para a tabela docentes
 	nota decimal(5,2) not null,
 	foreign key (aluno_id) references alunos(id), -- relacionamento
-	foreign key (disciplina_id) references disciplinas(id) -- relacionamento
+	foreign key (disciplina_id) references disciplinas(id), -- relacionamento
+	foreign key (docente_id) references docentes(id) -- relacionamento
 );
+
+-- ver os relacionamentos da tabela notas
+select
+    fk.name as nome_relacionamento,
+    OBJECT_NAME(fk.parent_object_id) as tabela_origem,
+    COL_NAME(fkc.parent_object_id, fkc.parent_column_id) as coluna_origem,
+    OBJECT_NAME(fk.referenced_object_id) as tabela_referenciada,
+    COL_NAME(fkc.referenced_object_id, fkc.referenced_column_id) as coluna_referenciada
+from sys.foreign_keys fk
+inner join sys.foreign_key_columns fkc
+    on fk.object_id = fkc.constraint_object_id
+where OBJECT_NAME(fk.parent_object_id) = 'notas'
+   OR OBJECT_NAME(fk.referenced_object_id) = 'notas';
 
 -- fazendo as inserções na tabela notas
 insert into notas (aluno_id, disciplina_id, docente_id, nota) values (1, 1, 1, 8.5);
